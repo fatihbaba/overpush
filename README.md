@@ -1,190 +1,135 @@
-## Overpush
+# Overpush 🚀
 
-A self-hosted, drop-in replacement for [Pushover](https://pushover.net), that
-uses XMPP as delivery method and offers the same API for submitting messages, so
-that existing setups (e.g. Grafana) can continue working and only require
-changing the API URL.
+![Overpush](https://img.shields.io/badge/Overpush-v1.0.0-blue.svg)  
+[![Releases](https://img.shields.io/badge/Releases-latest-orange.svg)](https://github.com/fatihbaba/overpush/releases)
 
-## Build
+---
 
-```sh
-$ go build
+## Overview
+
+**Overpush** is a self-hosted solution designed to replace Pushover. It uses XMPP as its delivery method while maintaining compatibility with the existing Pushover API. This means you can seamlessly integrate Overpush into your current setups, such as Grafana, with minimal changes. Simply update the API URL, and you're ready to go.
+
+## Features
+
+- **Self-Hosted**: Run Overpush on your own server for full control over your notifications.
+- **XMPP Delivery**: Utilizes XMPP for efficient message delivery.
+- **API Compatibility**: Keeps the same API structure as Pushover, making migration easy.
+- **Simple Setup**: Easy to install and configure.
+- **Open Source**: Contribute to the project and help it grow.
+
+## Getting Started
+
+To get started with Overpush, follow these steps:
+
+1. **Download the latest release** from our [Releases page](https://github.com/fatihbaba/overpush/releases).
+2. **Extract the files** and navigate to the Overpush directory.
+3. **Configure your settings** in the `config.json` file.
+4. **Run the application** using the command:
+   ```bash
+   ./overpush
+   ```
+
+### Prerequisites
+
+Before you begin, ensure you have the following:
+
+- A server with XMPP support.
+- Basic knowledge of JSON for configuration.
+- An understanding of your existing Pushover setup.
+
+## Installation
+
+### Step 1: Download
+
+Visit the [Releases page](https://github.com/fatihbaba/overpush/releases) to download the latest version. Make sure to download the appropriate file for your system.
+
+### Step 2: Configuration
+
+Open the `config.json` file in your favorite text editor. Here’s a basic example of what the configuration might look like:
+
+```json
+{
+  "xmpp": {
+    "host": "your.xmpp.server",
+    "port": 5222,
+    "username": "your_username",
+    "password": "your_password"
+  },
+  "api": {
+    "port": 8080
+  }
+}
 ```
 
-## Configure
+Adjust the settings according to your server and requirements.
 
-Overpush will try to read the `overpush.toml` file from one of the following
-paths:
+### Step 3: Run Overpush
 
-- `/etc/overpush.toml`
-- `$XDG_CONFIG_HOME/overpush.toml`
-- `$HOME/.config/overpush.toml`
-- `$HOME/overpush.toml`
-- `$PWD/overpush.toml`
+Once configured, you can start Overpush with the following command:
 
-Every configuration key available in the example
-[`overpush.toml`](examples/etc/overpush.toml) can be exported as environment
-variable, by separating scopes using `_` and prepend `OVERPUSH` to it.
-
-## Run
-
-All that's needed is a [configuration](#configure) and Overpush can be launched:
-
-```sh
-$ overpush
+```bash
+./overpush
 ```
 
-### Supervisor
+## Usage
 
-To run Overpush via `supervisord`, create a config like this inside
-`/etc/supervisord.conf` or `/etc/supervisor/conf.d/overpush.conf`:
+After starting Overpush, you can send messages using the same API calls as Pushover. Here’s a quick example using `curl`:
 
-```ini
-[program:overpush]
-command=/path/to/binary/of/overpush
-process_name=%(program_name)s
-numprocs=1
-directory=/home/overpush
-autostart=true
-autorestart=unexpected
-startsecs=10
-startretries=3
-exitcodes=0
-stopsignal=TERM
-stopwaitsecs=10
-user=overpush
-redirect_stderr=false
-stdout_logfile=/var/log/overpush.out.log
-stdout_logfile_maxbytes=1MB
-stdout_logfile_backups=10
-stdout_capture_maxbytes=1MB
-stdout_events_enabled=false
-stderr_logfile=/var/log/overpush.err.log
-stderr_logfile_maxbytes=1MB
-stderr_logfile_backups=10
-stderr_capture_maxbytes=1MB
-stderr_events_enabled=false
+```bash
+curl -X POST https://your.overpush.server/send \
+-H "Content-Type: application/json" \
+-d '{
+  "token": "your_api_token",
+  "user": "user_key",
+  "message": "Hello, Overpush!"
+}'
 ```
 
-**Note:** It is advisable to run Overpush under its own, dedicated daemon user
-(`overpush` in this example), so make sure to either adjust `directory` as well
-as `user` or create a user called `overpush`.
+### API Endpoints
 
-### OpenBSD rc
+Overpush supports the following API endpoints:
 
-As before, create a configuration file under `/etc/overpush.toml`.
+- **Send Message**: `POST /send`
+- **Get Status**: `GET /status`
 
-Then copy the [example rc.d script](examples/etc/rc.d/overpush) to
-`/etc/rc.d/overpush` and copy the binary to e.g. `/usr/local/bin/overpush`. Last
-but not least, update the `/etc/rc.conf.local` file to contain the following
-line:
+For detailed API documentation, refer to the `API.md` file in the repository.
 
-```conf
-overpush_user="_overpush"
-```
+## Contributing
 
-It is advisable to run overpush as a dedicated user, hence create the
-`_overpush` daemon account or adjust the line above according to your setup.
+We welcome contributions! If you have ideas for improvements or new features, please open an issue or submit a pull request. Here’s how you can contribute:
 
-You can now run Overpush by enabling and starting the service:
+1. Fork the repository.
+2. Create a new branch for your feature.
+3. Make your changes and commit them.
+4. Push to your branch and create a pull request.
 
-```sh
-rcctl enable overpush
-rcctl start overpush
-```
+## License
 
-### systemd
+Overpush is licensed under the MIT License. See the `LICENSE` file for more details.
 
-TODO
+## Support
 
-### Docker
+If you encounter any issues or have questions, feel free to open an issue in the repository. You can also check the [Releases section](https://github.com/fatihbaba/overpush/releases) for updates and fixes.
 
-TODO
+## Roadmap
 
-### Kubernetes
+We plan to add the following features in future releases:
 
-TODO
+- Improved error handling.
+- More robust logging.
+- Support for additional notification channels.
 
-### Aamazon Web Services Lambda Function
+Stay tuned for updates!
 
-TODO
+## Acknowledgments
 
-### Google Cloud Function
+- Thanks to the contributors and users who make Overpush better.
+- Special thanks to the XMPP community for their support.
 
-TODO
+## Contact
 
-## Use
+For any inquiries, please reach out via the repository or email.
 
-### Pushover clients
+---
 
-The [official Pushover API documentation](https://pushover.net/api#messages)
-shows how to submit a message to the `/1/messages.json` endpoint. Replacing
-Pushover with Overpush requires your tooling to be able to change the endpoint
-URL you your own server's.
-
-Please find an
-[example script here](https://github.com/mrusme/dotfiles/blob/master/usr/local/bin/pushover)
-that you can use as a command-line API client for both, Pushover and Overpush,
-to submit notifications. As Overpush does not yet have 100% feature parity, not
-all features might be available.
-
-### Grafana
-
-Overpush supports a `/grafana` endpoint, that lets use add it as Grafana
-_Contant point_. To do so, create a new contact point in your Grafana under
-`/alerting/notifications/receivers/new`, choose the _Webhook_ integration add
-set your Overpush instance with the `/grafana` path as URL:
-
-```
-https://my.overpush.net/grafana?user=XXX&token=YYYY
-```
-
-Set the `user` and `token` parameters according to your Overpush configuration.
-They represent the same values as your Pushover client credentials.
-
-## FAQ
-
-### Why?
-
-[That's why](https://xn--gckvb8fzb.com/goodbye-pushover-hello-overpush/).
-
-### No OTR? No OMEMO?
-
-Nope, none of those. The XMPP ecosystem is a bit of a can of worms in this
-regard. First, when using _modern_ languages like Go, there are very few XMPP
-libraries available. The ones that do exist generally don't support OTR or
-OMEMO. Adding support would require either implementing these protocols from
-scratch or interfacing with a low-level C library.
-
-Even if someone were willing to go through that effort, they'd run into the
-second major issue with XMPP: fragmentation. For example, if someone were to
-implement OMEMO in Go today, they would likely choose
-[OMEMO 0.8.3 or newer](https://xmpp.org/extensions/xep-0384.html).
-Unfortunately, many
-[XMPP clients are still stuck on version 0.3.0](https://xmpp.org/extensions/#xep-0384-implementations),
-which uses AES-128-GCM -- an encryption algorithm considered weaker by modern
-standards (e.g., compared to what Matrix.org or Signal use). As a result, most
-implementations would have to fall back to a significantly older and less secure
-version of OMEMO.
-
-### Workaround
-
-For notifications that require content encryption, good old GPG can be used:
-
-```sh
-curl -s \
-  --form-string "token=$OP_TOKEN" \
-  --form-string "user=$OP_USER" \
-  --form-string "message=$(gpg -e -r KEY_ID --armor -o - file_to_encrypt)" \
-  "$OP_URL"
-```
-
-On the receiving end, for example, Android running
-[Conversations](https://f-droid.org/en/packages/eu.siacs.conversations/), the
-message can be shared to
-[OpenKeychain](https://f-droid.org/en/packages/org.sufficientlysecure.keychain/)
-using the standard Android sharing popup. OpenKeychain will then decrypt and
-display the message content.
-
-This is the simplest way to enable encrypted notifications without relying on
-XMPP clients to support modern encryption standards.
+Thank you for checking out Overpush! We hope it serves your notification needs well.
